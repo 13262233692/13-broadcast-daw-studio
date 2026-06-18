@@ -4,11 +4,14 @@ use crossbeam_channel::{unbounded, Sender, Receiver};
 use std::sync::atomic::{AtomicU64, Ordering};
 
 use crate::audio_engine::{AudioEngine, CpalHost};
-use crate::shared::types::{AudioConfig, AudioStats, AudioDeviceInfo, EngineEvent};
+use crate::shared::types::{AudioConfig, AudioStats, AudioDeviceInfo, EngineEvent, SyncState};
 use crate::shared::rt_params::{ParamUpdate, GraphCommand, RcuSnapshot, DagSnapshot};
 use crate::dag::{DAGProcessor, NodeType, Node, Connection, Position};
 use crate::dsp::types::{EqBand, CompressorParams};
 use crate::vst3_host::{Vst3Host, PluginInfo};
+use crate::midi_control::{MidiDeviceInfo, MidiMapping};
+use crate::automation::{TimecodeTrigger};
+use crate::timecode::Timecode;
 use uuid::Uuid;
 
 struct EngineRuntime {
@@ -321,3 +324,220 @@ pub fn set_master_volume(
 
 #[allow(dead_code)]
 fn _unused(_: DAGProcessor) {}
+
+#[tauri::command]
+pub fn scan_midi_devices(state: tauri::State<'_, AppState>) -> Result<Vec<MidiDeviceInfo>, String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let guard = sync.lock();
+        guard.midi.scan_devices().unwrap_or_default()
+    })
+}
+
+#[tauri::command]
+pub fn connect_midi_input(
+    device_name: String,
+    state: tauri::State<'_, AppState>,
+) -> Result<(), String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.midi.connect_input(&device_name)
+    })?
+}
+
+#[tauri::command]
+pub fn disconnect_midi(state: tauri::State<'_, AppState>) -> Result<(), String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.midi.disconnect();
+    });
+    Ok(())
+}
+
+#[tauri::command]
+pub fn active_midi_device(state: tauri::State<'_, AppState>) -> Result<Option<MidiDeviceInfo>, String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let guard = sync.lock();
+        guard.midi.active_device()
+    })
+}
+
+#[tauri::command]
+pub fn add_midi_mapping(
+    mapping: MidiMapping,
+    state: tauri::State<'_, AppState>,
+) -> Result<(), String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.midi.add_mapping(mapping);
+    });
+    Ok(())
+}
+
+#[tauri::command]
+pub fn get_midi_mappings(state: tauri::State<'_, AppState>) -> Result<Vec<MidiMapping>, String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let guard = sync.lock();
+        guard.midi.mappings()
+    })
+}
+
+#[tauri::command]
+pub fn enable_ltc_decoding(state: tauri::State<'_, AppState>) -> Result<(), String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.enable_ltc();
+    });
+    Ok(())
+}
+
+#[tauri::command]
+pub fn disable_ltc_decoding(state: tauri::State<'_, AppState>) -> Result<(), String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.disable_ltc();
+    });
+    Ok(())
+}
+
+#[tauri::command]
+pub fn start_playback(state: tauri::State<'_, AppState>) -> Result<(), String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.clock.start_playback(guard.current_timecode());
+    });
+    Ok(())
+}
+
+#[tauri::command]
+pub fn stop_playback(state: tauri::State<'_, AppState>) -> Result<(), String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.clock.stop_playback();
+    });
+    Ok(())
+}
+
+#[tauri::command]
+pub fn get_current_timecode(state: tauri::State<'_, AppState>) -> Result<Option<Timecode>, String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let guard = sync.lock();
+        guard.current_timecode()
+    })
+}
+
+#[tauri::command]
+pub fn add_timecode_trigger(
+    trigger: TimecodeTrigger,
+    state: tauri::State<'_, AppState>,
+) -> Result<String, String> {
+    let id = trigger.id.to_string();
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.add_trigger(trigger);
+    });
+    Ok(id)
+}
+
+#[tauri::command]
+pub fn remove_timecode_trigger(
+    trigger_id: String,
+    state: tauri::State<'_, AppState>,
+) -> Result<bool, String> {
+    let uuid = Uuid::parse_str(&trigger_id).map_err(|e| e.to_string())?;
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.remove_trigger(uuid)
+    })
+}
+
+#[tauri::command]
+pub fn get_timecode_triggers(state: tauri::State<'_, AppState>) -> Result<Vec<TimecodeTrigger>, String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let guard = sync.lock();
+        guard.triggers()
+    })
+}
+
+#[tauri::command]
+pub fn set_ducking_params(
+    attack_ms: f32,
+    hold_ms: f32,
+    release_ms: f32,
+    duck_gain: f32,
+    enabled: bool,
+    state: tauri::State<'_, AppState>,
+) -> Result<(), String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.ducking.attack_ms = attack_ms;
+        guard.ducking.hold_ms = hold_ms;
+        guard.ducking.release_ms = release_ms;
+        guard.ducking.duck_gain = duck_gain;
+        guard.ducking.enabled = enabled;
+    });
+    Ok(())
+}
+
+#[tauri::command]
+pub fn start_multicast_broadcast(
+    multicast_ip: Option<String>,
+    port: Option<u16>,
+    interface_ip: Option<String>,
+    state: tauri::State<'_, AppState>,
+) -> Result<(), String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        if guard.multicast_enabled {
+            guard.stop_multicast();
+        }
+        if let Some(ip) = multicast_ip.as_deref() {
+            if let Some(p) = port {
+                use crate::sync::MulticastBroadcaster;
+                if let Ok(new_bc) = MulticastBroadcaster::new(ip, p) {
+                    guard.broadcaster = new_bc;
+                }
+            }
+        }
+        guard.start_multicast(interface_ip.as_deref())
+    })?
+}
+
+#[tauri::command]
+pub fn stop_multicast_broadcast(state: tauri::State<'_, AppState>) -> Result<(), String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let mut guard = sync.lock();
+        guard.stop_multicast();
+    });
+    Ok(())
+}
+
+#[tauri::command]
+pub fn get_sync_state(state: tauri::State<'_, AppState>) -> Result<SyncState, String> {
+    with_engine(&state.inner(), |rt| {
+        let sync = rt.engine.sync_coordinator();
+        let guard = sync.lock();
+        SyncState {
+            master_clock: guard.clock_state(),
+            ltc: guard.ltc_stats(),
+            multicast_enabled: guard.multicast_enabled,
+            ducking_active: guard.ducking.current_gain < 0.95,
+        }
+    })
+}

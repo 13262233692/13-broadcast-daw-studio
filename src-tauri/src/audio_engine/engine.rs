@@ -2,6 +2,8 @@ use crate::dag::DAGProcessor;
 use crate::dsp::AudioBlock;
 use crate::shared::types::{AudioConfig, AudioStats, EngineEvent};
 use crate::shared::rt_params::{ParamQueueHandle, GraphCmdQueueHandle, ParamUpdate, GraphCommand, RcuSnapshot, DagSnapshot};
+use crate::sync::ExternalSyncCoordinator;
+use crate::automation::TriggerAction;
 use anyhow::{Context, Result};
 use crossbeam_channel::Sender;
 use ringbuf::{HeapProducer, HeapConsumer, HeapRb};
@@ -9,7 +11,7 @@ use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::thread;
 use std::time::{Duration, Instant};
-use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
+use cpal::traits::{DeviceTrait, StreamTrait};
 use thread_priority::{ThreadPriority, set_current_thread_priority};
 
 use super::cpal_impl::CpalHost;
@@ -33,6 +35,7 @@ pub struct AudioEngine {
     stats_snapshot: Arc<RcuSnapshot<AudioStats>>,
     dag_snapshot: Arc<RcuSnapshot<DagSnapshot>>,
     event_sender: Sender<EngineEvent>,
+    sync_coordinator: parking_lot::Mutex<ExternalSyncCoordinator>,
     is_running: bool,
     processing_thread_handle: Option<thread::JoinHandle<()>>,
     event_thread_handle: Option<thread::JoinHandle<()>>,
@@ -44,12 +47,13 @@ impl AudioEngine {
     pub fn new(config: AudioConfig, event_sender: Sender<EngineEvent>) -> Self {
         let param_queue = ParamQueueHandle::new();
         let graph_cmd_queue = GraphCmdQueueHandle::new();
+        let sr = config.sample_rate as f32;
 
         let stats = AudioStats {
             cpu_usage: 0.0,
             xruns: 0,
             latency: 0.0,
-            sample_rate: config.sample_rate as f32,
+            sample_rate: sr,
             actual_buffer_size: config.buffer_size as f32,
             dsp_load: 0.0,
         };
@@ -65,12 +69,17 @@ impl AudioEngine {
             stats_snapshot: Arc::new(RcuSnapshot::new(stats)),
             dag_snapshot: Arc::new(RcuSnapshot::new(DagSnapshot::default())),
             event_sender,
+            sync_coordinator: parking_lot::Mutex::new(ExternalSyncCoordinator::new(sr)),
             is_running: false,
             processing_thread_handle: None,
             event_thread_handle: None,
             processing_running: Arc::new(AtomicBool::new(false)),
             event_running: Arc::new(AtomicBool::new(false)),
         }
+    }
+
+    pub fn sync_coordinator(&self) -> &parking_lot::Mutex<ExternalSyncCoordinator> {
+        &self.sync_coordinator
     }
 
     pub fn param_queue(&self) -> &ParamQueueHandle {
@@ -190,6 +199,10 @@ impl AudioEngine {
         let sr = self.config.sample_rate as f32;
         let bs = self.config.buffer_size as usize;
         let xruns_dsp = xruns_atomic.clone();
+        let sync_coord = {
+            let mut guard = self.sync_coordinator.lock();
+            ExternalSyncCoordinator::new(sr)
+        };
 
         self.processing_thread_handle = Some(
             thread::Builder::new()
@@ -209,6 +222,7 @@ impl AudioEngine {
                         event_sender,
                         config,
                         xruns_dsp,
+                        sync_coord,
                     );
                 })
                 .expect("Failed to spawn DSP thread")
@@ -343,6 +357,7 @@ impl AudioEngine {
         event_sender: Sender<EngineEvent>,
         config: AudioConfig,
         xruns_atomic: Arc<AtomicU64>,
+        mut sync: ExternalSyncCoordinator,
     ) {
         let channels = 2usize;
         let buffer_size = config.buffer_size as usize;
@@ -350,6 +365,7 @@ impl AudioEngine {
 
         let mut param_buf: Vec<ParamUpdate> = Vec::with_capacity(256);
         let mut cmd_buf: Vec<GraphCommand> = Vec::with_capacity(32);
+        let mut trigger_actions: Vec<TriggerAction> = Vec::with_capacity(16);
 
         let mut last_process_time = Instant::now();
         let mut last_snapshot_time = Instant::now();
@@ -361,6 +377,8 @@ impl AudioEngine {
         while running.load(Ordering::Acquire) {
             let cycle_start = Instant::now();
 
+            sync.process_midi_messages(&event_sender);
+
             graph_cmd_queue.try_drain_all(&mut cmd_buf);
             for cmd in cmd_buf.drain(..) {
                 Self::apply_graph_command(&mut graph, cmd);
@@ -371,11 +389,19 @@ impl AudioEngine {
                 Self::apply_param_update(&mut graph, update);
             }
 
+            trigger_actions.clear();
+            trigger_actions.extend(sync.tick_triggers(&event_sender));
+            ExternalSyncCoordinator::apply_trigger_actions(&trigger_actions, &param_queue, &mut sync.ducking);
+
+            sync.maybe_broadcast_position();
+
             {
                 let mut interleaved = vec![0.0f32; buffer_size * channels];
                 let read = input_consumer.pop_slice(&mut interleaved);
 
                 if read == buffer_size * channels {
+                    sync.process_ltc_samples(&interleaved, &event_sender);
+
                     let mut audio_block =
                         AudioBlock::from_interleaved(&interleaved, channels, sample_rate);
 
@@ -386,7 +412,10 @@ impl AudioEngine {
                     let dsp_elapsed = dsp_start.elapsed().as_nanos() as u64;
                     dsp_cycles += dsp_elapsed;
 
-                    let processed = processed_block.to_interleaved();
+                    let mut processed = processed_block.to_interleaved();
+                    sync.process_ducking(&mut processed);
+                    sync.advance_samples(buffer_size as u32);
+
                     let written = output_producer.push_slice(&processed);
 
                     if written < processed.len() {

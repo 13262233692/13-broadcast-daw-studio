@@ -64,6 +64,18 @@ pub enum EngineEvent {
     XrunOccurred(u32),
     Clipping(Vec<usize>),
     PluginStatus(String, bool),
+    TimecodeUpdate(crate::timecode::Timecode),
+    LtcLockStatus(bool),
+    MidiMessage(crate::midi_control::MidiMessage),
+    TriggerFired(String),
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SyncState {
+    pub master_clock: crate::sync::ClockState,
+    pub ltc: crate::timecode::LtcStats,
+    pub multicast_enabled: bool,
+    pub ducking_active: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

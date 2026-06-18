@@ -4,3 +4,7 @@ pub mod dsp;
 pub mod dag;
 pub mod vst3_host;
 pub mod commands;
+pub mod timecode;
+pub mod midi_control;
+pub mod automation;
+pub mod sync;
