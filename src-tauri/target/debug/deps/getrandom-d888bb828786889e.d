@@ -1,0 +1,10 @@
+D:\SOLO-0616-2\13-broadcast-daw-studio\src-tauri\target\debug\deps\getrandom-d888bb828786889e.d: C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\lib.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\backends.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\error.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\util.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\../README.md C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\backends\windows.rs
+
+D:\SOLO-0616-2\13-broadcast-daw-studio\src-tauri\target\debug\deps\libgetrandom-d888bb828786889e.rmeta: C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\lib.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\backends.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\error.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\util.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\../README.md C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\backends\windows.rs
+
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\lib.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\backends.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\error.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\util.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\../README.md:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\getrandom-0.4.3\src\backends\windows.rs:

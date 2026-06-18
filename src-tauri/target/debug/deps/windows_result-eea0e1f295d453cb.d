@@ -1,0 +1,10 @@
+D:\SOLO-0616-2\13-broadcast-daw-studio\src-tauri\target\debug\deps\windows_result-eea0e1f295d453cb.d: C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\lib.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\bindings.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\com.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\strings.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\error.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\hresult.rs
+
+D:\SOLO-0616-2\13-broadcast-daw-studio\src-tauri\target\debug\deps\libwindows_result-eea0e1f295d453cb.rmeta: C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\lib.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\bindings.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\com.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\strings.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\error.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\hresult.rs
+
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\lib.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\bindings.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\com.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\strings.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\error.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-result-0.1.2\src\hresult.rs:

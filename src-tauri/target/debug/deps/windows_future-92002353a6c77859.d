@@ -1,0 +1,10 @@
+D:\SOLO-0616-2\13-broadcast-daw-studio\src-tauri\target\debug\deps\windows_future-92002353a6c77859.d: C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\lib.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\bindings.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\bindings_impl.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\get.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\waiter.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\../readme.md
+
+D:\SOLO-0616-2\13-broadcast-daw-studio\src-tauri\target\debug\deps\libwindows_future-92002353a6c77859.rmeta: C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\lib.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\bindings.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\bindings_impl.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\get.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\waiter.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\../readme.md
+
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\lib.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\bindings.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\bindings_impl.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\get.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\waiter.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\windows-future-0.2.1\src\../readme.md:

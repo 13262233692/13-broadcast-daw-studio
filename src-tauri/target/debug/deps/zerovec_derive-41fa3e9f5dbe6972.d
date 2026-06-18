@@ -1,0 +1,10 @@
+D:\SOLO-0616-2\13-broadcast-daw-studio\src-tauri\target\debug\deps\zerovec_derive-41fa3e9f5dbe6972.d: C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\lib.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\make_ule.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\make_varule.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\ule.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\utils.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\varule.rs
+
+D:\SOLO-0616-2\13-broadcast-daw-studio\src-tauri\target\debug\deps\zerovec_derive-41fa3e9f5dbe6972.dll: C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\lib.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\make_ule.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\make_varule.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\ule.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\utils.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\varule.rs
+
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\lib.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\make_ule.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\make_varule.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\ule.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\utils.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\zerovec-derive-0.11.3\src\varule.rs:

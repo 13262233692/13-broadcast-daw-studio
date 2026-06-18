@@ -1,0 +1,9 @@
+D:\SOLO-0616-2\13-broadcast-daw-studio\src-tauri\target\debug\deps\tauri_runtime-128fbe4ac71905b6.d: C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\lib.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\dpi.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\monitor.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\webview.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\window.rs
+
+D:\SOLO-0616-2\13-broadcast-daw-studio\src-tauri\target\debug\deps\libtauri_runtime-128fbe4ac71905b6.rmeta: C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\lib.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\dpi.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\monitor.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\webview.rs C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\window.rs
+
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\lib.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\dpi.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\monitor.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\webview.rs:
+C:\Users\ZhuanZ\.cargo\registry\src\mirrors.aliyun.com-0671735e7cc7f5e7\tauri-runtime-2.11.3\src\window.rs:
